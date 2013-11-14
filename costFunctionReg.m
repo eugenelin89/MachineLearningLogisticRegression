@@ -19,7 +19,24 @@ grad = zeros(size(theta));
 
 
 
+z = X * theta;
+h = sigmoid(z);
+cost = (-y .* log(h))-(1-y).*log(1-h);
+term1 = (1/m) * sum(cost);
+theta_mod = theta([2:size(theta,1)],:); %skip theta_0 (or in octave, theta_1)
+term2 = (lambda/(2*m))*sum( theta_mod.^2  );
+J = term1 + term2; 
 
+% get the "normal" unregularized grad
+grad =(1/m) * ((h-y)' * X)';
+% other than the first theta term, everything else addes a reg term
+regTerm = (lambda/m) * theta;
+% the first theta term will remain the same.  save it first.
+grad1 = grad(1);
+% the rest of the terms need to add reg term.  we simply do it for every term for now
+grad = grad + regTerm;
+% then we substitute back the first term from where we saved it.
+grad(1) = grad1;
 
 
 % =============================================================
