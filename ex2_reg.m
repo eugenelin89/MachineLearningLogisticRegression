@@ -87,7 +87,7 @@ pause;
 initial_theta = zeros(size(X, 2), 1);
 
 % Set regularization parameter lambda to 1 (you should vary this)
-lambda = 1;
+lambda = 0.0001;
 
 % Set Options
 options = optimset('GradObj', 'on', 'MaxIter', 400);
@@ -111,6 +111,6 @@ hold off;
 % Compute accuracy on our training set
 p = predict(theta, X);
 
-fprintf('Train Accuracy: %f\n', mean(double(p == y)) * 100);
+fprintf('Train Accuracy after ex2: %f\n', mean(double(p == y)) * 100);
 
 
